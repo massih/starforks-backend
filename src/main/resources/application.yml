@@ -1,3 +1,15 @@
 micronaut:
   application:
     name: slurpbook
+
+datasources:
+  default:
+    url: ${JDBC_URL:`jdbc:postgresql://localhost:5432/slurpbook`}
+    username: ${JDBC_USER:admin}
+    password: ${JDBC_PASSWORD:admin}
+    driverClassName: ${JDBC_DRIVER:org.postgresql.Driver}
+
+flyway:
+  datasources:
+    default:
+      enabled: true
