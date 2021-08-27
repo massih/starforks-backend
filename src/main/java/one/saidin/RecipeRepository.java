@@ -5,7 +5,7 @@ import io.micronaut.data.model.query.builder.sql.Dialect;
 import io.micronaut.data.repository.PageableRepository;
 
 @JdbcRepository(dialect = Dialect.POSTGRES)
-public interface RecipeRepository extends PageableRepository<RecipeEntity, Long> {
+public interface RecipeRepository extends PageableRepository<Recipe, Long> {
 
 
 }

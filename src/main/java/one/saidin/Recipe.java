@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @MappedEntity
-public class RecipeEntity {
+public class Recipe {
     @Id
     @GeneratedValue(GeneratedValue.Type.AUTO)
     private Long id;
@@ -34,7 +34,7 @@ public class RecipeEntity {
         return id;
     }
 
-    public RecipeEntity setId(Long id) {
+    public Recipe setId(Long id) {
         this.id = id;
         return this;
     }
@@ -43,7 +43,7 @@ public class RecipeEntity {
         return name;
     }
 
-    public RecipeEntity setName(String name) {
+    public Recipe setName(String name) {
         this.name = name;
         return this;
     }
@@ -52,7 +52,7 @@ public class RecipeEntity {
         return ingredients;
     }
 
-    public RecipeEntity setIngredients(String ingredients) {
+    public Recipe setIngredients(String ingredients) {
         this.ingredients = ingredients;
         return this;
     }
@@ -61,7 +61,7 @@ public class RecipeEntity {
         return steps;
     }
 
-    public RecipeEntity setSteps(String steps) {
+    public Recipe setSteps(String steps) {
         this.steps = steps;
         return this;
     }
@@ -70,7 +70,7 @@ public class RecipeEntity {
         return type;
     }
 
-    public RecipeEntity setType(String type) {
+    public Recipe setType(String type) {
         this.type = type;
         return this;
     }
@@ -79,7 +79,7 @@ public class RecipeEntity {
         return picture;
     }
 
-    public RecipeEntity setPicture(String picture) {
+    public Recipe setPicture(String picture) {
         this.picture = picture;
         return this;
     }
@@ -88,7 +88,7 @@ public class RecipeEntity {
         return createdAt;
     }
 
-    public RecipeEntity setCreatedAt(LocalDate createdAt) {
+    public Recipe setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
         return this;
     }

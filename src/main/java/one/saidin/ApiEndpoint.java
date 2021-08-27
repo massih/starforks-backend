@@ -1,14 +1,18 @@
 package one.saidin;
 
 import io.micronaut.http.HttpResponse;
-import io.micronaut.http.MediaType;
+import io.micronaut.http.HttpStatus;
 import io.micronaut.http.MutableHttpResponse;
 import io.micronaut.http.annotation.*;
+import io.micronaut.http.exceptions.HttpStatusException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+
+import static io.micronaut.http.MediaType.APPLICATION_JSON;
+import static java.lang.String.format;
 
 
 @Controller("/recipe")
@@ -20,17 +24,22 @@ public class ApiEndpoint {
         this.repository = repository;
     }
 
-    @Get
-    @Produces(MediaType.TEXT_PLAIN)
-    public String helloWorld() {
-        LOG.info("HelloWorld EndPoint called!");
-        return "Hello World!";
+    @Get("/{id}")
+    @Produces(APPLICATION_JSON)
+    public Recipe fetch(Long id) {
+        LOG.info("Fetching recipe id: {}", id);
+        return repository
+                .findById(id)
+                .orElseThrow(() ->
+                        new HttpStatusException(HttpStatus.NOT_FOUND, format("Recipe id %s not found", id))
+                );
     }
 
-    @Post()
-    @Produces(MediaType.APPLICATION_JSON)
-    public MutableHttpResponse<RecipeEntity> saveRecipe(@Body @Valid RecipeSaveRequest request) {
-        RecipeEntity entity = new RecipeEntity()
+    @Post
+    @Consumes(APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
+    public MutableHttpResponse<Recipe> saveRecipe(@Body @Valid RecipeSaveRequest request) {
+        Recipe entity = new Recipe()
                 .setName(request.getName())
                 .setIngredients(request.getIngredients())
                 .setSteps(request.getSteps())

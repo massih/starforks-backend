@@ -1,0 +1,17 @@
+POST http://localhost:8080/recipe/
+Content-Type: application/json;charset=utf-8
+
+{
+  "name": "name",
+  "ingredients": "ingredients",
+  "steps": "steps",
+  "type": "type",
+  "picture": "picture"
+}
+
+###
+GET http://localhost:8080/recipe/12
+Content-Type: application/json;charset=utf-8
+
+<> 2021-08-27T223943.404.json
+<> 2021-08-27T223923.200.json

@@ -1,8 +1,11 @@
 package one.saidin;
 
+import io.micronaut.core.annotation.Introspected;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+@Introspected
 public class RecipeSaveRequest {
     @NotNull
     @NotEmpty
