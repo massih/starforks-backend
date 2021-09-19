@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import static io.micronaut.http.MediaType.APPLICATION_JSON;
 import static java.lang.String.format;
@@ -33,6 +35,16 @@ public class ApiEndpoint {
                 .orElseThrow(() ->
                         new HttpStatusException(HttpStatus.NOT_FOUND, format("Recipe id %s not found", id))
                 );
+    }
+
+    @Get("/all")
+    @Produces(APPLICATION_JSON)
+    public List<Recipe> fetchAll() {
+        LOG.info("Fetching all recipes");
+        List<Recipe> recipes = new ArrayList<>();
+        repository
+                .findAll().forEach(recipes::add);
+        return recipes;
     }
 
     @Post
