@@ -1,9 +1,6 @@
 name: pull-request
-#on: [ pull_request ]
-on:
-  push:
-    branches:
-      - actions
+on: [ pull_request ]
+
 env:
   JDBC_URL: 'jdbc:tc:postgresql://localhost:5432/slurpbook'
   JDBC_USER: 'sa'
