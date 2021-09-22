@@ -1,10 +1,16 @@
-name: test-action
+name: pull-request
+#on: [ pull_request ]
 on:
   push:
     branches:
       - actions
+env:
+  JDBC_URL: jdbc:h2:mem:default
+  JDBC_USER: 'sa'
+  JDBC_PASSWORD: ""
+  JDBC_DRIVER: org.h2.Driver
 jobs:
-  test-mvn:
+  mvn-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
