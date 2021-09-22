@@ -5,10 +5,10 @@ on:
     branches:
       - actions
 env:
-  JDBC_URL: jdbc:h2:mem:default
+  JDBC_URL: 'jdbc:h2:mem:default;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE'
   JDBC_USER: 'sa'
   JDBC_PASSWORD: ""
-  JDBC_DRIVER: org.h2.Driver
+  JDBC_DRIVER: 'org.h2.Driver'
 jobs:
   mvn-test:
     runs-on: ubuntu-latest
