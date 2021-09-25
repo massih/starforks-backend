@@ -2,8 +2,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>one.saidin</groupId>
-  <artifactId>slurpbook</artifactId>
+  <groupId>com.glue</groupId>
+  <artifactId>starforks</artifactId>
   <version>0.1</version>
   <packaging>${packaging}</packaging>
 
@@ -19,7 +19,7 @@
     <!-- If you are building with JDK 9 or higher, you can uncomment the lines below to set the release version -->
     <!-- <release.version>8</release.version> -->
     <micronaut.version>2.5.11</micronaut.version>
-    <exec.mainClass>one.saidin.Application</exec.mainClass>
+    <exec.mainClass>com.glue.StarForks</exec.mainClass>
     <micronaut.runtime>netty</micronaut.runtime>
   </properties>
 
@@ -129,7 +129,7 @@
             </path>
           </annotationProcessorPaths>
           <compilerArgs>
-            <arg>-Amicronaut.processing.group=one.saidin</arg>
+            <arg>-Amicronaut.processing.group=one.starforks</arg>
             <arg>-Amicronaut.processing.module=slurpbook</arg>
           </compilerArgs>
         </configuration>

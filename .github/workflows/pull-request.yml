@@ -2,7 +2,7 @@ name: pull-request
 on: [ pull_request ]
 
 env:
-  JDBC_URL: 'jdbc:tc:postgresql://localhost:5432/slurpbook'
+  JDBC_URL: 'jdbc:tc:postgresql://localhost:5432/starforks'
   JDBC_USER: 'admin'
   JDBC_PASSWORD: "admin"
   JDBC_DRIVER: 'org.testcontainers.jdbc.ContainerDatabaseDriver'
