@@ -1,16 +1,25 @@
 version: '3'
 services:
 
-#    app:
-#      build: .
-#      depends_on:
-#        - db
+  app:
+    container_name: starforks
+    image: starforks
+    environment:
+      - JDBC_URL=jdbc:postgresql://db:5432/starforks
+      - JDBC_USER=admin
+      - JDBC_PASSWORD=admin
+      - JDBC_DRIVER=org.postgresql.Driver
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
 
   db:
+    container_name: starforks-db
     image: postgres:13.3
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
-      - POSTGRES_DB=slurpbook
+      - POSTGRES_DB=starforks
     ports:
       - "5432:5432"
