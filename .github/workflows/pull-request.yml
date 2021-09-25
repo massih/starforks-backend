@@ -1,0 +1,21 @@
+name: pull-request
+on: [ pull_request ]
+
+env:
+  JDBC_URL: 'jdbc:tc:postgresql://localhost:5432/slurpbook'
+  JDBC_USER: 'admin'
+  JDBC_PASSWORD: "admin"
+  JDBC_DRIVER: 'org.testcontainers.jdbc.ContainerDatabaseDriver'
+jobs:
+  mvn-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 16
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '16'
+
+      - name: Build with Maven
+        run: mvn -B -q package --file pom.xml

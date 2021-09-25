@@ -98,6 +98,13 @@
       <artifactId>logback-classic</artifactId>
       <scope>runtime</scope>
     </dependency>
+
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>1.16.0</version>
+      <scope>runtime</scope>
+    </dependency>
   </dependencies>
 
   <build>
