@@ -1,4 +1,4 @@
-package one.saidin;
+package com.glue;
 
 import io.micronaut.data.jdbc.annotation.JdbcRepository;
 import io.micronaut.data.model.query.builder.sql.Dialect;

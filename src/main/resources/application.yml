@@ -1,6 +1,6 @@
 micronaut:
   application:
-    name: slurpbook
+    name: StarForks
   server:
     cors:
       enabled: true
@@ -11,7 +11,7 @@ micronaut:
 
 datasources:
   default:
-    url: ${JDBC_URL:`jdbc:postgresql://localhost:5432/slurpbook`}
+    url: ${JDBC_URL:`jdbc:postgresql://localhost:5432/starforks`}
     username: ${JDBC_USER:admin}
     password: ${JDBC_PASSWORD:admin}
     driverClassName: ${JDBC_DRIVER:org.postgresql.Driver}

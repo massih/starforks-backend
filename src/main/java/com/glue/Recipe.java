@@ -1,4 +1,4 @@
-package one.saidin;
+package com.glue;
 
 import io.micronaut.data.annotation.GeneratedValue;
 import io.micronaut.data.annotation.Id;
