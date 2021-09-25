@@ -3,7 +3,7 @@ services:
 
   app:
     container_name: starforks
-    build: .
+    image: starforks
     environment:
       - JDBC_URL=jdbc:postgresql://db:5432/starforks
       - JDBC_USER=admin

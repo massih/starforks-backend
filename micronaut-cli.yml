@@ -1,5 +1,5 @@
 applicationType: default
-defaultPackage: one.saidin
+defaultPackage: com.glue
 testFramework: junit
 sourceLanguage: java
 buildTool: maven

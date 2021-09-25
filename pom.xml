@@ -19,7 +19,7 @@
     <!-- If you are building with JDK 9 or higher, you can uncomment the lines below to set the release version -->
     <!-- <release.version>8</release.version> -->
     <micronaut.version>2.5.11</micronaut.version>
-    <exec.mainClass>com.glue.StarForks</exec.mainClass>
+    <exec.mainClass>com.glue.Starforks</exec.mainClass>
     <micronaut.runtime>netty</micronaut.runtime>
   </properties>
 
@@ -129,8 +129,8 @@
             </path>
           </annotationProcessorPaths>
           <compilerArgs>
-            <arg>-Amicronaut.processing.group=one.starforks</arg>
-            <arg>-Amicronaut.processing.module=slurpbook</arg>
+            <arg>-Amicronaut.processing.group=com.glue</arg>
+            <arg>-Amicronaut.processing.module=starforks</arg>
           </compilerArgs>
         </configuration>
       </plugin>
@@ -141,10 +141,10 @@
         <version>3.1.4</version>
         <configuration>
           <from>
-            <image></image>
+            <image>adoptopenjdk/openjdk16:jre-16.0.1_9-alpine</image>
           </from>
           <to>
-            <image>myimage</image>
+            <image>starforks</image>
           </to>
         </configuration>
       </plugin>
