@@ -11,7 +11,7 @@ micronaut:
 
 datasources:
   default:
-    url: ${JDBC_URL:`jdbc:postgresql://localhost:5432/starforks`}
+    url: ${JDBC_URL:`jdbc:postgresql://db:5432/starforks`}
     username: ${JDBC_USER:admin}
     password: ${JDBC_PASSWORD:admin}
     driverClassName: ${JDBC_DRIVER:org.postgresql.Driver}
