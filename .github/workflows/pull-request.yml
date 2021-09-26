@@ -18,4 +18,4 @@ jobs:
           java-version: '16'
 
       - name: Build with Maven
-        run: mvn -B -q package --file pom.xml
+        run: mvn -B -q verify --file pom.xml
