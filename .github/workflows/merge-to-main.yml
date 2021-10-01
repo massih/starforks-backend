@@ -21,7 +21,7 @@ jobs:
       - name: Build and push docker images with jib
         run: |
           mvn compile -B -q jib:build \
-              -Djib.to.image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} \
-              -Djib.to.tags=${{ github.sha }},latest
+              -Djib.to.image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest \
+              -Djib.to.tags=${{ github.sha }}
               -Djib.to.auth.username=${{ github.actor }} \
               -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }}
