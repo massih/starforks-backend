@@ -1,18 +1,25 @@
 version: '3'
 services:
 
-  app:
-    container_name: starforks
-    image: starforks
-    environment:
-      - JDBC_URL=jdbc:postgresql://db:5432/starforks
-      - JDBC_USER=admin
-      - JDBC_PASSWORD=admin
-      - JDBC_DRIVER=org.postgresql.Driver
+#  backend:
+#    container_name: backend
+#    image: starforks
+#    environment:
+#      - JDBC_URL=jdbc:postgresql://db:5432/starforks
+#      - JDBC_USER=admin
+#      - JDBC_PASSWORD=admin
+#      - JDBC_DRIVER=org.postgresql.Driver
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - db
+
+  frontend:
+    container_name: frontend
+    image: ghcr.io/massih/starforks-frontend:latest
     ports:
-      - "8080:8080"
-    depends_on:
-      - db
+      - "80:80"
+
 
   db:
     container_name: starforks-db
@@ -23,3 +30,13 @@ services:
       - POSTGRES_DB=starforks
     ports:
       - "5432:5432"
+
+  mongo:
+    container_name: mongo
+    image: mongo:5.0.5
+    environment:
+      - MONGO_INITDB_DATABASE=starforks
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+    ports:
+      - "27017:27017"
