@@ -16,6 +16,17 @@ datasources:
     password: ${JDBC_PASSWORD:admin}
     driverClassName: ${JDBC_DRIVER:org.postgresql.Driver}
 
+mongodb:
+  uri: mongodb://${MONGO_USERNAME:admin}:${MONGO_PASSWORD:admin}@${MONGO_HOST:localhost}:${MONGO_PORT:27017}/starforks
+  options:
+    connection-pool:
+      max-size: 20
+    readConcern: majority
+
+grails:
+  mongodb:
+    databaseName: starforks
+
 flyway:
   datasources:
     default:
