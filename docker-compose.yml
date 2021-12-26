@@ -20,18 +20,7 @@ services:
     ports:
       - "80:80"
 
-
   db:
-    container_name: starforks-db
-    image: postgres:13.3
-    environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=admin
-      - POSTGRES_DB=starforks
-    ports:
-      - "5432:5432"
-
-  mongo:
     container_name: mongo
     image: mongo:5.0.5
     environment:

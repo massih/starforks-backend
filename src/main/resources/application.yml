@@ -3,18 +3,12 @@ micronaut:
     name: StarForks
   server:
     cors:
+      single-header: true
       enabled: true
       configurations:
         web:
           allowedOrigins:
-            - ${ALLOWED_ORIGIN:`http://localhost`}
-
-datasources:
-  default:
-    url: ${JDBC_URL:`jdbc:postgresql://db:5432/starforks`}
-    username: ${JDBC_USER:admin}
-    password: ${JDBC_PASSWORD:admin}
-    driverClassName: ${JDBC_DRIVER:org.postgresql.Driver}
+            - ${ALLOWED_ORIGIN:`http://localhost:4200`}
 
 mongodb:
   uri: mongodb://${MONGO_USERNAME:admin}:${MONGO_PASSWORD:admin}@${MONGO_HOST:localhost}:${MONGO_PORT:27017}/starforks
