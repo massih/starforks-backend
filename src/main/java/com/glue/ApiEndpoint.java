@@ -39,7 +39,6 @@ public class ApiEndpoint {
                 .setSteps(recipe.getSteps())
                 .setType(recipe.getType())
                 .setPicture(Base64.getEncoder().encodeToString(recipe.getPicture()))
-//                .setPicture(recipe.getPicture())
                 .setCreatedAt(recipe.getCreatedAt());
     }
 
@@ -50,58 +49,6 @@ public class ApiEndpoint {
         return repository.findAll(skip, limit);
     }
 
-//    @Post
-//    @Consumes(MULTIPART_FORM_DATA)
-//    @Produces(APPLICATION_JSON)
-//    public Flux<Object> saveRecipe(@Body MultipartBody body) {
-//        LOG.info("Saving recipe!");
-//        return Flux.create(emitter -> {
-//            body.subscribe(new Subscriber<CompletedPart>() {
-//                private Subscription s;
-//                List<String> datas = new ArrayList<>();
-//
-//                @Override
-//                public void onSubscribe(Subscription subscription) {
-//                    this.s = subscription;
-//                    s.request(200);
-//                }
-//
-//                @Override
-//                public void onNext(CompletedPart completedPart) {
-//                    try {
-//                        datas.add(new String(completedPart.getBytes(), StandardCharsets.UTF_8));
-//                        s.request(200);
-//                        System.out.println("datas = " + datas);
-//                    } catch (IOException e) {
-//                        s.cancel();
-//                    }
-//                }
-//
-//                @Override
-//                public void onError(Throwable throwable) {
-//                    System.out.println("throwable = " + throwable);
-//                }
-//
-//                @Override
-//                public void onComplete() {
-//                    System.out.println("DONE");
-////                    emitter.success(String.join("|", datas));
-//                }
-//            });
-//        });
-////        System.out.println("body = " + body);
-////        System.out.println("file.toString() = " + file.toString());
-////        System.out.println("request.toString() = " + request.getName());
-////        RecipeMongo entity = new RecipeMongo()
-////                .setName(request.getName())
-////                .setIngredients(request.getIngredients())
-////                .setSteps(request.getSteps())
-////                .setType(request.getType())
-////                .setPicture(request.getPicture())
-////                .setCreatedAt(LocalDate.now());
-////        return repository.save(entity);
-////        return new RecipeMongo();
-//    }
     @Post
     @Consumes(MULTIPART_FORM_DATA)
     @Produces(APPLICATION_JSON)

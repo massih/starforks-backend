@@ -18,6 +18,9 @@ public class RecipeSaveRequest {
     private String steps;
 
     @NotNull
+    private String author;
+
+    @NotNull
     private String type;
 
     private String picture;
@@ -47,6 +50,14 @@ public class RecipeSaveRequest {
     public RecipeSaveRequest setSteps(String steps) {
         this.steps = steps;
         return this;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public String getType() {
