@@ -158,6 +158,8 @@
             <arg>-Amicronaut.processing.group=com.glue</arg>
             <arg>-Amicronaut.processing.module=starforks</arg>
           </compilerArgs>
+          <source>10</source>
+          <target>10</target>
         </configuration>
       </plugin>
 
