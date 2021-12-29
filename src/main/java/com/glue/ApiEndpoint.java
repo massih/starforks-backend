@@ -1,5 +1,6 @@
 package com.glue;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.*;
 import io.micronaut.http.exceptions.HttpStatusException;
@@ -9,6 +10,10 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.util.Base64;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static io.micronaut.http.MediaType.APPLICATION_JSON;
@@ -26,7 +31,7 @@ public class ApiEndpoint {
         this.repository = recipeRepository;
     }
 
-    @Get("/{id}")
+    @Get("/findOne/{id}")
     @Produces(APPLICATION_JSON)
     public RecipeResponse fetch(String id) {
         LOG.info("Fetching recipe id: {}", id);
@@ -42,11 +47,11 @@ public class ApiEndpoint {
                 .setCreatedAt(recipe.getCreatedAt());
     }
 
-    @Get("/all")
+    @Get("/all/{searchWords}")
     @Produces(APPLICATION_JSON)
-    public List<Recipe> fetchAll(@QueryValue(defaultValue = "10") int limit, @QueryValue(defaultValue = "0") int skip) {
+    public List<RecipeMongo> fetchAll(@QueryValue(defaultValue = "10") int limit, @QueryValue(defaultValue = "0") int skip, String searchWords) {
         LOG.info("Fetching all recipes");
-        return repository.findAll(skip, limit);
+        return repository.findAllFiltered(skip, limit, searchWords);
     }
 
     @Post
