@@ -2,12 +2,13 @@ package com.glue;
 
 import dev.morphia.Datastore;
 import dev.morphia.query.FindOptions;
+import dev.morphia.query.Query;
 import jakarta.inject.Inject;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 import static dev.morphia.query.Sort.descending;
-import static dev.morphia.query.experimental.filters.Filters.eq;
-import static dev.morphia.query.experimental.filters.Filters.text;
+import static dev.morphia.query.experimental.filters.Filters.*;
 
 
 public class RecipeRepository {
@@ -40,15 +41,16 @@ public class RecipeRepository {
         if (searchWords.isEmpty()) {
             return findAll(skip, limit);
         }
-        return datastore.find(Recipe.class)
-                .filter(text(searchWords)
-                        .caseSensitive(false)
-                        .diacriticSensitive(false)
-                )
-                .iterator(new FindOptions()
-                        .sort(descending("createdAt"))
-                        .skip(skip)
-                        .limit(limit))
-                .toList();
+        String regex = searchWords.replaceAll(" ", "|");
+        Pattern pattern = Pattern.compile(regex);
+
+        Query<Recipe> query = datastore.find(Recipe.class);
+        return query.filter(or(
+                        regex("name").pattern(pattern),
+                        regex("ingredients").pattern(pattern),
+                        regex("steps").pattern(pattern)
+                ))
+                .iterator().toList();
+
     }
 }
