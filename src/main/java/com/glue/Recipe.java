@@ -2,11 +2,13 @@ package com.glue;
 
 import dev.morphia.annotations.Entity;
 import dev.morphia.annotations.Id;
-
+import dev.morphia.annotations.*;
+import dev.morphia.utils.IndexType;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
+@Indexes(@Index(fields = @Field(value = "$**", type = IndexType.TEXT)))
 public class Recipe {
     @Id
     private String id;

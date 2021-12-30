@@ -4,10 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.*;
 import io.micronaut.http.exceptions.HttpStatusException;
+import io.micronaut.http.multipart.CompletedFileUpload;
+import io.micronaut.http.multipart.CompletedPart;
 import jakarta.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import reactor.core.publisher.Flux;
 import java.time.LocalDate;
 import java.util.Base64;
 import java.io.IOException;
@@ -31,7 +33,7 @@ public class ApiEndpoint {
         this.repository = recipeRepository;
     }
 
-    @Get("/findOne/{id}")
+    @Get("/id/{id}")
     @Produces(APPLICATION_JSON)
     public RecipeResponse fetch(String id) {
         LOG.info("Fetching recipe id: {}", id);
@@ -47,11 +49,13 @@ public class ApiEndpoint {
                 .setCreatedAt(recipe.getCreatedAt());
     }
 
-    @Get("/all/{searchWords}")
+    @Get("/")
     @Produces(APPLICATION_JSON)
-    public List<RecipeMongo> fetchAll(@QueryValue(defaultValue = "10") int limit, @QueryValue(defaultValue = "0") int skip, String searchWords) {
-        LOG.info("Fetching all recipes");
-        return repository.findAllFiltered(skip, limit, searchWords);
+    public List<Recipe> fetchAll(@QueryValue(defaultValue = "10") int limit,
+                                 @QueryValue(defaultValue = "0") int skip,
+                                 @QueryValue(defaultValue = "") String searchWords) {
+        LOG.info("Fetching all recipes containing: " + searchWords);
+        return repository.findAll(skip, limit, searchWords);
     }
 
     @Post
