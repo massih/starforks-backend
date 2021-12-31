@@ -1,5 +1,6 @@
 package com.glue;
 
+import com.glue.models.RecipePreview;
 import dev.morphia.Datastore;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
@@ -7,6 +8,7 @@ import jakarta.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import static dev.morphia.query.Sort.descending;
 import static dev.morphia.query.experimental.filters.Filters.*;
 
@@ -28,16 +30,29 @@ public class RecipeRepository {
         return Optional.ofNullable(recipe);
     }
 
-    public List<Recipe> findAll(int skip, int limit) {
+    public List<RecipePreview> findAll(int skip, int limit) {
         return datastore.find(Recipe.class).iterator(
-                new FindOptions()
-                        .sort(descending("createdAt"))
-                        .skip(skip)
-                        .limit(limit)
-        ).toList();
+                        new FindOptions()
+                                .skip(skip)
+                                .limit(limit)
+                                .projection().include("name", "id", "picture", "type"))
+                .toList()
+                .stream()
+                .map(this::recipeToRecipePreview)
+                .collect(Collectors.toList());
     }
 
-    public List<Recipe> findAll(int skip, int limit, String searchWords) {
+    private RecipePreview recipeToRecipePreview(Recipe recipe) {
+        return new RecipePreview()
+                .setPicture(recipe.getPicture())
+                .setName(recipe.getName())
+                .setType(recipe.getType())
+                .setId(recipe.getId());
+    }
+
+    public List<RecipePreview> findAll(int skip, int limit, String searchWords) {
+
+        searchWords = searchWords.trim();
         if (searchWords.isEmpty()) {
             return findAll(skip, limit);
         }
@@ -50,7 +65,12 @@ public class RecipeRepository {
                         regex("ingredients").pattern(pattern),
                         regex("steps").pattern(pattern)
                 ))
-                .iterator().toList();
+                .iterator(new FindOptions()
+                        .projection()
+                        .include("name", "id", "picture", "type"))
+                .toList()
+                .stream().map(this::recipeToRecipePreview)
+                .collect(Collectors.toList());
 
     }
 }

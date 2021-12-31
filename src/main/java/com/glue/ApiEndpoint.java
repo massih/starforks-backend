@@ -1,6 +1,9 @@
 package com.glue;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.glue.models.RecipePreview;
+import io.micronaut.data.model.Pageable;
+import io.micronaut.data.repository.PageableRepository;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.*;
 import io.micronaut.http.exceptions.HttpStatusException;
@@ -51,10 +54,10 @@ public class ApiEndpoint {
 
     @Get("/")
     @Produces(APPLICATION_JSON)
-    public List<Recipe> fetchAll(@QueryValue(defaultValue = "10") int limit,
-                                 @QueryValue(defaultValue = "0") int skip,
-                                 @QueryValue(defaultValue = "") String searchWords) {
-        LOG.info("Fetching all recipes containing: " + searchWords);
+    public List<RecipePreview> fetchAll(@QueryValue(defaultValue = "10") int limit,
+                                        @QueryValue(defaultValue = "0") int skip,
+                                        @QueryValue(defaultValue = "") String searchWords) {
+        LOG.info("Fetching all recipes containing: {}", searchWords);
         return repository.findAll(skip, limit, searchWords);
     }
 
