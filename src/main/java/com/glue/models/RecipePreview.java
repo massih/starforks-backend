@@ -1,7 +1,5 @@
 package com.glue.models;
 
-import com.glue.RecipeSaveRequest;
-
 public class RecipePreview {
     private String id;
     private String name;

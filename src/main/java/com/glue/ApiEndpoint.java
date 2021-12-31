@@ -54,7 +54,7 @@ public class ApiEndpoint {
 
     @Get("/")
     @Produces(APPLICATION_JSON)
-    public List<RecipePreview> fetchAll(@QueryValue(defaultValue = "10") int limit,
+    public PaginatedRecipe fetchAll(@QueryValue(defaultValue = "10") int limit,
                                         @QueryValue(defaultValue = "0") int skip,
                                         @QueryValue(defaultValue = "") String searchWords) {
         LOG.info("Fetching all recipes containing: {}", searchWords);
