@@ -1,38 +1,21 @@
 package com.glue;
 
-import dev.morphia.annotations.Entity;
-import dev.morphia.annotations.Id;
-
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-@Entity
-public class RecipeMongo {
-    @Id
+public class RecipeResponse {
     private String id;
-
-    @NotNull
     private String name;
-
-    @NotNull
     private String ingredients;
-
-    @NotNull
     private String steps;
-
-    @NotNull
     private String type;
-
     private String picture;
-
-    @NotNull
     private LocalDate createdAt;
 
     public String getId() {
         return id;
     }
 
-    public RecipeMongo setId(String id) {
+    public RecipeResponse setId(String id) {
         this.id = id;
         return this;
     }
@@ -41,7 +24,7 @@ public class RecipeMongo {
         return name;
     }
 
-    public RecipeMongo setName(String name) {
+    public RecipeResponse setName(String name) {
         this.name = name;
         return this;
     }
@@ -50,7 +33,7 @@ public class RecipeMongo {
         return ingredients;
     }
 
-    public RecipeMongo setIngredients(String ingredients) {
+    public RecipeResponse setIngredients(String ingredients) {
         this.ingredients = ingredients;
         return this;
     }
@@ -59,7 +42,7 @@ public class RecipeMongo {
         return steps;
     }
 
-    public RecipeMongo setSteps(String steps) {
+    public RecipeResponse setSteps(String steps) {
         this.steps = steps;
         return this;
     }
@@ -68,7 +51,7 @@ public class RecipeMongo {
         return type;
     }
 
-    public RecipeMongo setType(String type) {
+    public RecipeResponse setType(String type) {
         this.type = type;
         return this;
     }
@@ -77,7 +60,7 @@ public class RecipeMongo {
         return picture;
     }
 
-    public RecipeMongo setPicture(String picture) {
+    public RecipeResponse setPicture(String picture) {
         this.picture = picture;
         return this;
     }
@@ -86,21 +69,8 @@ public class RecipeMongo {
         return createdAt;
     }
 
-    public RecipeMongo setCreatedAt(LocalDate createdAt) {
+    public RecipeResponse setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
         return this;
-    }
-
-    @Override
-    public String toString() {
-        return "RecipeEntity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", ingredients='" + ingredients + '\'' +
-                ", steps='" + steps + '\'' +
-                ", type='" + type + '\'' +
-                ", picture='" + picture + '\'' +
-                ", createdAt=" + createdAt +
-                '}';
     }
 }
