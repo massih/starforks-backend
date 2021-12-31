@@ -1,17 +1,15 @@
 package com.glue;
 
-import io.micronaut.data.annotation.GeneratedValue;
-import io.micronaut.data.annotation.Id;
-import io.micronaut.data.annotation.MappedEntity;
+import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.Id;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-@MappedEntity
+@Entity
 public class Recipe {
     @Id
-    @GeneratedValue(GeneratedValue.Type.AUTO)
-    private Long id;
+    private String id;
 
     @NotNull
     private String name;
@@ -25,16 +23,16 @@ public class Recipe {
     @NotNull
     private String type;
 
-    private String picture;
+    private byte[] picture;
 
     @NotNull
     private LocalDate createdAt;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public Recipe setId(Long id) {
+    public Recipe setId(String id) {
         this.id = id;
         return this;
     }
@@ -75,11 +73,11 @@ public class Recipe {
         return this;
     }
 
-    public String getPicture() {
+    public byte[] getPicture() {
         return picture;
     }
 
-    public Recipe setPicture(String picture) {
+    public Recipe setPicture(byte[] picture) {
         this.picture = picture;
         return this;
     }
