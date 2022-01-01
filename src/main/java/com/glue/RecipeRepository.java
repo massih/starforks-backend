@@ -5,7 +5,6 @@ import dev.morphia.Datastore;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import jakarta.inject.Inject;
-import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -35,7 +34,15 @@ public class RecipeRepository {
         System.out.println("getTotalRecipeCount() = " + getTotalRecipeCount());
         return new PaginatedRecipe()
                 .setRecipes(
-                        getRecipePreviews(recipePreviewFindOptions(skip, limit)))
+                        datastore.find(Recipe.class)
+                                .iterator(new FindOptions()
+                                        .skip(skip)
+                                        .limit(limit)
+                                        .projection().include("name", "id", "picture", "type"))
+                                .toList()
+                                .stream()
+                                .map(this::recipeToRecipePreview)
+                                .collect(Collectors.toList()))
                 .setTotal(getTotalRecipeCount());
     }
 
@@ -44,15 +51,25 @@ public class RecipeRepository {
         if (searchWords.isEmpty()) {
             return findAll(skip, limit);
         }
-
+        String regex = searchWords.replaceAll(" ", "|");
+        Pattern pattern = Pattern.compile(regex);
         Query<Recipe> query = datastore.find(Recipe.class);
-        List<RecipePreview> recipePreviews = getFilterForRecipePreview(query, searchWords)
-                .iterator(recipePreviewFindOptions(skip, limit))
+        List<RecipePreview> recipePreviews = query.filter(or(
+                        regex("name").pattern(pattern),
+                        regex("ingredients").pattern(pattern),
+                        regex("steps").pattern(pattern)))
+                .iterator(new FindOptions()
+                        .skip(skip)
+                        .limit(limit)
+                        .projection().include("name", "id", "picture", "type"))
                 .toList()
                 .stream().map(this::recipeToRecipePreview)
                 .collect(Collectors.toList());
 
-        int totalCollectionSize = (int) getFilterForRecipePreview(query, searchWords)
+        int totalCollectionSize = (int) query.filter(or(
+                        regex("name").pattern(pattern),
+                        regex("ingredients").pattern(pattern),
+                        regex("steps").pattern(pattern)))
                 .iterator(new FindOptions())
                 .toList()
                 .stream().map(this::recipeToRecipePreview).count();
@@ -63,17 +80,6 @@ public class RecipeRepository {
 
     }
 
-    @NotNull
-    private Query<Recipe> getFilterForRecipePreview(Query<Recipe> query, String searchWords) {
-        String regex = searchWords.replaceAll(" ", "|");
-        Pattern pattern = Pattern.compile(regex);
-        return query.filter(or(
-                regex("name").pattern(pattern),
-                regex("ingredients").pattern(pattern),
-                regex("steps").pattern(pattern)
-        ));
-    }
-
     private RecipePreview recipeToRecipePreview(Recipe recipe) {
         return new RecipePreview()
                 .setPicture(recipe.getPicture())
@@ -82,29 +88,14 @@ public class RecipeRepository {
                 .setId(recipe.getId());
     }
 
-
-    @NotNull
-    private FindOptions recipePreviewFindOptions(int skip, int limit) {
-        return new FindOptions()
-                .skip(skip)
-                .limit(limit)
-                .projection().include("name", "id", "picture", "type");
-    }
-
     private int getTotalRecipeCount() {
-        return getRecipePreviews(new FindOptions()
-                .projection()
-                .include("id"))
+        return datastore.find(Recipe.class)
+                .iterator(new FindOptions()
+                        .projection()
+                        .include("id"))
+                .toList()
                 .size();
+
     }
 
-    @NotNull
-    private List<RecipePreview> getRecipePreviews(FindOptions findOptions) {
-        return datastore.find(Recipe.class)
-                .iterator(findOptions)
-                .toList()
-                .stream()
-                .map(this::recipeToRecipePreview)
-                .collect(Collectors.toList());
-    }
 }
