@@ -40,16 +40,17 @@ public class ApiEndpoint {
     @Produces(APPLICATION_JSON)
     public RecipeResponse fetch(String id) {
         LOG.info("Fetching recipe id: {}", id);
-        Recipe recipe = repository.find(id)
+        return repository.find(id)
+                .map(entity ->
+                        new RecipeResponse()
+                                .setId(entity.getId())
+                                .setName(entity.getName())
+                                .setIngredients(entity.getIngredients())
+                                .setSteps(entity.getSteps())
+                                .setType(entity.getType())
+                                .setPicture(Base64.getEncoder().encodeToString(entity.getPicture()))
+                                .setCreatedAt(entity.getCreatedAt()))
                 .orElseThrow(() -> new HttpStatusException(HttpStatus.NOT_FOUND, format("Recipe id %s not found", id)));
-        return new RecipeResponse()
-                .setId(recipe.getId())
-                .setName(recipe.getName())
-                .setIngredients(recipe.getIngredients())
-                .setSteps(recipe.getSteps())
-                .setType(recipe.getType())
-                .setPicture(Base64.getEncoder().encodeToString(recipe.getPicture()))
-                .setCreatedAt(recipe.getCreatedAt());
     }
 
     @Get("/")

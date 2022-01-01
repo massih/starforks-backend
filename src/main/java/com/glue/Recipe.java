@@ -101,7 +101,7 @@ public class Recipe {
                 ", ingredients='" + ingredients + '\'' +
                 ", steps='" + steps + '\'' +
                 ", type='" + type + '\'' +
-                ", picture='" + picture + '\'' +
+//                ", picture='" + picture + '\'' +
                 ", createdAt=" + createdAt +
                 '}';
     }
