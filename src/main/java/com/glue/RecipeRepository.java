@@ -63,13 +63,13 @@ public class RecipeRepository {
                 .stream().map(this::recipeToRecipePreview)
                 .collect(toList());
 
-        int totalCollectionSize = (int) query.filter(or(
+        int totalCollectionSize = query.filter(or(
                         regex("name").pattern(pattern),
                         regex("ingredients").pattern(pattern),
                         regex("steps").pattern(pattern)))
                 .iterator(new FindOptions())
                 .toList()
-                .stream().map(this::recipeToRecipePreview).count();
+                .size();
 
         return new PaginatedRecipe(recipePreviews, totalCollectionSize);
     }
@@ -89,7 +89,6 @@ public class RecipeRepository {
                         .include("id"))
                 .toList()
                 .size();
-
     }
 
 }

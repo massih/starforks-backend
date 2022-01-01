@@ -1,13 +1,17 @@
 package com.glue;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.glue.models.RecipePreview;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
+
+@JsonInclude(NON_NULL)
 public class PaginatedRecipe {
-    private final List<RecipePreview> recipes; //result paginated 0-20
-    private final int total; //total number of recipes meeting search criteria 3000000
+    private final List<RecipePreview> recipes;
+    private final int total;
 
     public PaginatedRecipe(List<RecipePreview> recipes, int total) {
         this.recipes = recipes;
