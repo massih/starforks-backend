@@ -8,9 +8,9 @@ import jakarta.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import static dev.morphia.query.experimental.filters.Filters.*;
+import static java.util.stream.Collectors.toList;
 
 
 public class RecipeRepository {
@@ -31,19 +31,16 @@ public class RecipeRepository {
     }
 
     public PaginatedRecipe findAll(int skip, int limit) {
-        System.out.println("getTotalRecipeCount() = " + getTotalRecipeCount());
-        return new PaginatedRecipe()
-                .setRecipes(
-                        datastore.find(Recipe.class)
-                                .iterator(new FindOptions()
-                                        .skip(skip)
-                                        .limit(limit)
-                                        .projection().include("name", "id", "picture", "type"))
-                                .toList()
-                                .stream()
-                                .map(this::recipeToRecipePreview)
-                                .collect(Collectors.toList()))
-                .setTotal(getTotalRecipeCount());
+        List<RecipePreview> recipePreviews = datastore.find(Recipe.class)
+                .iterator(new FindOptions()
+                        .skip(skip)
+                        .limit(limit)
+                        .projection().include("name", "id", "picture", "type"))
+                .toList()
+                .stream()
+                .map(this::recipeToRecipePreview)
+                .collect(toList());
+        return new PaginatedRecipe(recipePreviews, getTotalRecipeCount());
     }
 
     public PaginatedRecipe findAll(int skip, int limit, String searchWords) {
@@ -64,7 +61,7 @@ public class RecipeRepository {
                         .projection().include("name", "id", "picture", "type"))
                 .toList()
                 .stream().map(this::recipeToRecipePreview)
-                .collect(Collectors.toList());
+                .collect(toList());
 
         int totalCollectionSize = (int) query.filter(or(
                         regex("name").pattern(pattern),
@@ -74,10 +71,7 @@ public class RecipeRepository {
                 .toList()
                 .stream().map(this::recipeToRecipePreview).count();
 
-        return new PaginatedRecipe()
-                .setRecipes(recipePreviews)
-                .setTotal(totalCollectionSize);
-
+        return new PaginatedRecipe(recipePreviews, totalCollectionSize);
     }
 
     private RecipePreview recipeToRecipePreview(Recipe recipe) {
