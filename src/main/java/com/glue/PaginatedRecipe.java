@@ -6,17 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PaginatedRecipe {
-    private List<RecipePreview> recipes; //result paginated 0-20
-    private int total; //total number of recipes meeting search criteria 3000000
+    private final List<RecipePreview> recipes; //result paginated 0-20
+    private final int total; //total number of recipes meeting search criteria 3000000
 
-    public PaginatedRecipe setRecipes(List<RecipePreview> recipes) {
+    public PaginatedRecipe(List<RecipePreview> recipes, int total) {
         this.recipes = recipes;
-        return this;
-    }
-
-    public PaginatedRecipe setTotal(int total) {
         this.total = total;
-        return this;
     }
 
     public List<RecipePreview> getRecipes() {
