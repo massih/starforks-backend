@@ -3,7 +3,6 @@ package com.glue;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.glue.models.RecipePreview;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;

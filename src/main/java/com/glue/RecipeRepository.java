@@ -5,6 +5,8 @@ import dev.morphia.Datastore;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import jakarta.inject.Inject;
+
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -76,7 +78,7 @@ public class RecipeRepository {
 
     private RecipePreview recipeToRecipePreview(Recipe recipe) {
         return new RecipePreview()
-                .setPicture(recipe.getPicture())
+                .setPicture(Base64.getEncoder().encodeToString(recipe.getPicture()))
                 .setName(recipe.getName())
                 .setType(recipe.getType())
                 .setId(recipe.getId());

@@ -1,25 +1,14 @@
 package com.glue;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.glue.models.RecipePreview;
-import io.micronaut.data.model.Pageable;
-import io.micronaut.data.repository.PageableRepository;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.*;
 import io.micronaut.http.exceptions.HttpStatusException;
-import io.micronaut.http.multipart.CompletedFileUpload;
-import io.micronaut.http.multipart.CompletedPart;
 import jakarta.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import reactor.core.publisher.Flux;
+
 import java.time.LocalDate;
 import java.util.Base64;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 import static io.micronaut.http.MediaType.APPLICATION_JSON;
 import static io.micronaut.http.MediaType.MULTIPART_FORM_DATA;
@@ -56,8 +45,8 @@ public class ApiEndpoint {
     @Get("/")
     @Produces(APPLICATION_JSON)
     public PaginatedRecipe fetchAll(@QueryValue(defaultValue = "10") int limit,
-                                        @QueryValue(defaultValue = "0") int skip,
-                                        @QueryValue(defaultValue = "") String searchWords) {
+                                    @QueryValue(defaultValue = "0") int skip,
+                                    @QueryValue(defaultValue = "") String searchWords) {
         LOG.info("Fetching all recipes containing: {}", searchWords);
         return repository.findAll(skip, limit, searchWords);
     }
