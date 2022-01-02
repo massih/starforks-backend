@@ -1,9 +1,8 @@
 package com.glue;
 
-import dev.morphia.annotations.Entity;
-import dev.morphia.annotations.Id;
 import dev.morphia.annotations.*;
 import dev.morphia.utils.IndexType;
+
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -101,7 +100,6 @@ public class Recipe {
                 ", ingredients='" + ingredients + '\'' +
                 ", steps='" + steps + '\'' +
                 ", type='" + type + '\'' +
-//                ", picture='" + picture + '\'' +
                 ", createdAt=" + createdAt +
                 '}';
     }
